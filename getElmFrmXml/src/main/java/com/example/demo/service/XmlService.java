@@ -1,9 +1,5 @@
 package com.example.demo.service;
 
-
-
-
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -20,7 +16,7 @@ public class XmlService {
 
     public String getInputXML() {
         try {
-            ClassPathResource resource = new ClassPathResource("C:\\Users\\ashut\\OneDrive\\Desktop\\xML\\getElmFrmXml\\src\\main\\resources\\templates\\input.xml");
+            ClassPathResource resource = new ClassPathResource("input.xml");
             InputStream inputStream = resource.getInputStream();
             byte[] bytes = inputStream.readAllBytes();
             return new String(bytes);
@@ -32,7 +28,7 @@ public class XmlService {
 
     public String getOutputXML() {
         try {
-            ClassPathResource resource = new ClassPathResource("C:\\Users\\ashut\\OneDrive\\Desktop\\xML\\getElmFrmXml\\src\\main\\resources\\templates\\output.xml");
+            ClassPathResource resource = new ClassPathResource("output.xml");
             InputStream inputStream = resource.getInputStream();
             byte[] bytes = inputStream.readAllBytes();
             return new String(bytes);
@@ -44,12 +40,16 @@ public class XmlService {
 
     public boolean compareOrderNo(String inputParameter) {
         String inputXML = getInputXML();
+//        System.out.println(inputXML);
         if (inputXML != null) {
             try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document document = builder.parse(new InputSource(new StringReader(inputXML)));
-                String orderNo = document.getDocumentElement().getAttribute("OrderNo");
+
+                String orderNo = document.getDocumentElement().getAttribute("orderNo");
+//                System.out.println(inputParameter);
+                System.out.println(orderNo);
                 return inputParameter.equals(orderNo);
             } catch (Exception e) {
                 e.printStackTrace();
